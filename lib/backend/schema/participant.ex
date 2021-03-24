@@ -2,6 +2,7 @@ defmodule Backend.Logic.Participant do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @derive {Jason.Encoder, only: [:image_path, :last_name, :points, :group]}
   schema "participant" do
     field :image_path, :string
     field :last_name, :string
@@ -14,6 +15,6 @@ defmodule Backend.Logic.Participant do
   def changeset(participant, attrs) do
     participant
     |> cast(attrs, [:last_name, :image_path, :points])
-    |> validate_required([:last_name, :image_path, :points])
+    |> validate_required([:last_name, :points])
   end
 end

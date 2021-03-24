@@ -2,6 +2,7 @@ defmodule Backend.Logic.Group do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @derive {Jason.Encoder, only: [:creation_date, :name]}
   schema "group" do
     field :creation_date, :date
     field :name, :string

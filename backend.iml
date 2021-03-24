@@ -46,11 +46,12 @@
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/cors_plug" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/corsica" />
     </content>
+    <orderEntry type="jdk" jdkName="Erlang for Elixir 23 (2)" jdkType="Erlang SDK for Elixir SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="phoenix" level="project" />
-    <orderEntry type="library" name="phoenix_ecto" level="project" />
-    <orderEntry type="library" name="ecto_sql" level="project" />
-    <orderEntry type="library" name="postgrex" level="project" />
+    <orderEntry type="library" exported="" name="phoenix" level="project" />
+    <orderEntry type="library" exported="" name="phoenix_ecto" level="project" />
+    <orderEntry type="library" exported="" name="ecto_sql" level="project" />
+    <orderEntry type="library" exported="" name="postgrex" level="project" />
     <orderEntry type="library" name="phoenix_live_dashboard" level="project" />
     <orderEntry type="library" name="telemetry_metrics" level="project" />
     <orderEntry type="library" name="telemetry_poller" level="project" />
@@ -96,6 +97,6 @@
     <orderEntry type="library" name="elixir_make" level="project" />
     <orderEntry type="library" name="cors_plug" level="project" />
     <orderEntry type="library" name="mix_test_watch" level="project" />
-    <orderEntry type="library" name="corsica" level="project" />
+    <orderEntry type="library" exported="" name="corsica" level="project" />
   </component>
 </module>

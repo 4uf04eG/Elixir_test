@@ -3,8 +3,6 @@ defmodule Backend.Logic do
   The Logic context.
   """
 
-  import Ecto.Query
-
   alias Backend.Repo
   alias Backend.Logic.Dance
 
@@ -146,5 +144,13 @@ defmodule Backend.Logic do
 
   def change_user(%User{} = user, attrs \\ %{}) do
     User.changeset(user, attrs)
+  end
+
+  alias Backend.Logic.AuthToken
+
+  def update_token(%AuthToken{} = token, attrs) do
+    token
+    |> AuthToken.changeset(attrs)
+    |> Repo.update()
   end
 end

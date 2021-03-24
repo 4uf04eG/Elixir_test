@@ -3,6 +3,10 @@ defmodule Backend.Authenticator do
   @seed "user token"
   @secret "Some very secret key"
 
+  alias Backend.Logic
+  alias Backend.Repo
+  alias Backend.Logic.AuthToken
+
   def generate_token(id) do
     Phoenix.Token.sign(@secret, @seed, id, max_age: 86400)
   end
@@ -13,6 +17,22 @@ defmodule Backend.Authenticator do
       error -> error
     end
   end
+
+  def update_token(conn) do
+    case extract_token(conn) do
+      {:ok, token} ->
+        case Repo.get_by(AuthToken, %{token: token}) |> Repo.preload(:user) do
+          nil -> {:error, :not_found}
+          auth_token ->
+            Logic.update_token(%{revoked: true}) do
+              token = generate_token(auth_token.user)
+              auth_token.user |> Ecto.build_assoc(:tokens, %{token: token}) |> Repo.insert
+            end
+        end
+      error -> error
+    end
+  end
+
 
   def get_auth_token(conn) do
     case extract_token(conn) do
@@ -32,7 +52,7 @@ defmodule Backend.Authenticator do
     {:ok, reg} = Regex.compile("Bearer\:?\s+(.*)$", "i")
     case Regex.run(reg, auth_header) do
       [_, match] -> {:ok, String.trim(match)}
-      _ -> {:error, "token not found"}
+      _ -> {:error, "Token not found"}
     end
   end
 end
