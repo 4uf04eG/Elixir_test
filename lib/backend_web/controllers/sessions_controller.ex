@@ -4,13 +4,14 @@ defmodule BackendWeb.SessionsController do
 
   def index(conn, _params) do
     case User.get_current(conn) do
+      {:error, :invalid} ->
+        conn
+        |> send_resp(401, "Please login")
       user ->
         conn
         |> put_status(:ok)
         |> render("user.json", user: user)
-      {:error, reason} ->
-        conn
-        |> send_resp(401, reason)
+
     end
   end
 
@@ -32,7 +33,7 @@ defmodule BackendWeb.SessionsController do
         conn
         |> put_status(:ok)
         |> render("show.json", token: auth_token)
-      {:error, reason} ->
+      {:error, _} ->
         conn
         |> send_resp(401, "")
     end
